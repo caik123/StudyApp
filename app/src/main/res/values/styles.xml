@@ -1,0 +1,35 @@
+<resources>
+
+    <!--给toolbar单独设置的theme，让toolbar上按钮颜和文字颜色变化的-->
+    <style name="MyDarkToolBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--toolbar图标颜色-->
+        <!--<item name="colorControlNormal">@color/colorAccent</item>-->
+        <!--toolbar的title颜色-->
+        <!--<item name="android:textColorPrimary">@color/colorAccent</item>-->
+        <!--toolbar的subtitle颜色-->
+        <!--<item name="subtitleTextColor">@color/colorAccent</item>-->
+    </style>
+
+    <!--给toolbar的menu内单独设置的theme，让toolbar上按钮颜和文字颜色变化的-->
+    <style name="MyLightPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!--设置背景-->
+        <!--<item name="android:background">@android:color/white</item>-->
+        <!--设置字体颜色-->
+        <!--<item name="android:textColor">@color/colorAccent</item>-->
+        <!--设置不覆盖锚点-->
+        <!--<item name="overlapAnchor">false</item>-->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!--不要actionbar，不要title-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
