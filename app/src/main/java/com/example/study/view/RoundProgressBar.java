@@ -329,8 +329,4 @@ public class RoundProgressBar extends View {
 
         void onProgress(int curProgress, int maxProgress);
     }
-
-    private int dip2px(int dp) {
-        return (int) (dp * getResources().getDisplayMetrics().density + 0.5f);
-    }
 }

@@ -20,6 +20,8 @@ public class TreeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tree);
+        //隐藏actionbar
+        getSupportActionBar().hide();
         mListView = (ListView) findViewById(R.id.id_tree);
         mAdapter = new NodeTreeAdapter(this, mListView, mLinkedList);
         mListView.setAdapter(mAdapter);

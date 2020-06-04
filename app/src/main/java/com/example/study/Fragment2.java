@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.example.study.view.RoundProgressBar;
  * create an instance of this fragment.
  */
 public class Fragment2 extends Fragment {
+    private View view;
+    boolean isFirstLoad = true;
+    RoundProgressBar roundProgressBar;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -54,6 +58,7 @@ public class Fragment2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("test", "onCreate2");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -64,29 +69,48 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_2, container, false);
+        Log.e("test", "onCreateView2");
+        if (view != null) {
+            return view;
+        }
+        view = inflater.inflate(R.layout.fragment_2, container, false);
+        roundProgressBar  = view.findViewById(R.id.round_progress_bar);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RoundProgressBar roundProgressBar = view.findViewById(R.id.round_progress_bar);
+        Log.e("test", "onViewCreated2");
 
-        roundProgressBar.setOnPressListener(new RoundProgressBar.OnPressListener() {
-            @Override
-            public void onPress(View view) {
-                Toast.makeText(getContext(), "onPress", Toast.LENGTH_SHORT).show();
-                // 由于我用在开屏页，有定时跳转策略，因此点击后需要移除
-                //handler.removeCallbacksAndMessages(null);
-                // 这里你可以实现自己的逻辑
-            }
-        });
 
-        roundProgressBar.startSlide(5000, new RoundProgressBar.SlideCallback() {
-            @Override
-            public void onProgress(int curProgress, int maxProgress) {
 
-            }
-        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //懒加载
+        if (isFirstLoad){
+            isFirstLoad = false;
+            Log.e("test", "第2个Fragment懒加载");
+            //lazyLoad();
+            roundProgressBar.setOnPressListener(new RoundProgressBar.OnPressListener() {
+                @Override
+                public void onPress(View view) {
+                    Toast.makeText(getContext(), "onPress", Toast.LENGTH_SHORT).show();
+                    // 由于我用在开屏页，有定时跳转策略，因此点击后需要移除
+                    //handler.removeCallbacksAndMessages(null);
+                    // 这里你可以实现自己的逻辑
+                }
+            });
+
+            roundProgressBar.startSlide(5000, new RoundProgressBar.SlideCallback() {
+                @Override
+                public void onProgress(int curProgress, int maxProgress) {
+
+                }
+            });
+        }
     }
 }

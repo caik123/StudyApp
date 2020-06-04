@@ -17,4 +17,15 @@
         android:label=""
         tools:layout="@layout/fragment_2" />
 
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.example.study.Fragment3"
+        android:label=""
+        tools:layout="@layout/fragment_3" />
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.example.study.Fragment4"
+        android:label=""
+        tools:layout="@layout/fragment_4" />
 </navigation>

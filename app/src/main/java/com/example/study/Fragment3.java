@@ -1,6 +1,5 @@
 package com.example.study;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,20 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.study.camera.CameraActivity;
-import com.example.study.tree.TreeActivity;
+import com.example.study.view.CardItem;
 
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment1#newInstance} factory method to
+ * Use the {@link Fragment3#newInstance} factory method to
  * create an instance of this fragment.
- * 结论：从源码中得到的结论是，Fragment数据的初始化应当在onResume方法中执行，可实现懒加载。
  */
-public class Fragment1 extends Fragment {
-
+public class Fragment3 extends Fragment {
     private View view;
-    boolean isFirstLoad = true;
+    private CardItem cardItem;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,8 +30,9 @@ public class Fragment1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private boolean isFirstLoad = true;
 
-    public Fragment1() {
+    public Fragment3() {
         // Required empty public constructor
     }
 
@@ -45,11 +42,11 @@ public class Fragment1 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment1.
+     * @return A new instance of fragment Fragment3.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment1 newInstance(String param1, String param2) {
-        Fragment1 fragment = new Fragment1();
+    public static Fragment3 newInstance(String param1, String param2) {
+        Fragment3 fragment = new Fragment3();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +57,7 @@ public class Fragment1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("test", "onCreate1");
+        Log.e("test", "onCreate3");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,48 +67,31 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("test", "onCreateView1");
         // Inflate the layout for this fragment
+        Log.e("test", "onCreateViewe3");
         if (view != null) {
             return view;
         }
-        view = inflater.inflate(R.layout.fragment_1, container, false);
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), TreeActivity.class));
-            }
-        });
-        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CameraActivity.class));
-            }
-        });
+        view = inflater.inflate(R.layout.fragment_3, container, false);
+        cardItem = view.findViewById(R.id.card_item);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.e("test", "onViewCreated3");
         super.onViewCreated(view, savedInstanceState);
-        Log.e("test", "onViewCreated1");
+        cardItem.setData(R.mipmap.ic_launcher, "技术最TOP", "扒最前沿科技动态，聊最TOP编程技术~");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //懒加载
-        if (isFirstLoad){
+        if (isFirstLoad) {
             isFirstLoad = false;
-            Log.e("test", "第1个Fragment懒加载");
+            Log.e("test", "第3个Fragment懒加载");
             //lazyLoad();
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //停止加载
-        //stopLoad();
     }
 }
