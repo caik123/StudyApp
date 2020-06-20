@@ -1,2 +1,3 @@
+include ':globalNetWorkChange'
 rootProject.name='study'
 include ':app'

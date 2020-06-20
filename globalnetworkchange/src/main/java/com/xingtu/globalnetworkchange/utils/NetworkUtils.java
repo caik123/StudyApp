@@ -1,5 +1,6 @@
-package com.example.study.net;
+package com.xingtu.globalnetworkchange.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -7,23 +8,25 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-/**
- * @author GhostKang
- * @description: 获取网络状态的工具类
- * @date :2020/5/29 16:15
- */
-public class NetWorkUtils {
+import com.xingtu.globalnetworkchange.NetType;
+import com.xingtu.globalnetworkchange.NetworkManager;
+
+
+public class NetworkUtils {
+
     /**
-     * @return 是否有网络
+     * 网络是否可用
      */
-    public static boolean isNetWorkAvailable() {
+    @SuppressLint("MissingPermission")
+    public static boolean isNetWoekAvailable() {
         ConnectivityManager manager = (ConnectivityManager) NetworkManager.getDefault().getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null) {
             return false;
         }
-        NetworkInfo[] networkInfos = manager.getAllNetworkInfo();
-        if (networkInfos != null) {
-            for (NetworkInfo info : networkInfos) {
+        //返回所有网络信息
+        NetworkInfo[] infos = manager.getAllNetworkInfo();
+        if (infos != null) {
+            for (NetworkInfo info : infos) {
                 if (info.getState() == NetworkInfo.State.CONNECTED) {
                     return true;
                 }
@@ -33,40 +36,40 @@ public class NetWorkUtils {
     }
 
     /**
-     * @return 网络类型
+     * 获取当前的网络类型  -1：没有网络  1：WIFI 2：wap 网络  3：net 网络
      */
-    public static String getNetworkType() {
+    @SuppressLint("MissingPermission")
+    public static NetType getNetType() {
         ConnectivityManager manager = (ConnectivityManager) NetworkManager.getDefault().getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null) {
             return NetType.NONE;
         }
+        //返回所有网络信息
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         if (networkInfo == null) {
             return NetType.NONE;
         }
-        int type = networkInfo.getType();
-        if (type == ConnectivityManager.TYPE_MOBILE) {
+
+        int nType = networkInfo.getType();
+        if (nType == ConnectivityManager.TYPE_MOBILE) {
             if (networkInfo.getExtraInfo().toLowerCase().equals("cmnet")) {
                 return NetType.CMNET;
             } else {
                 return NetType.CMWAP;
             }
-        } else if (type == ConnectivityManager.TYPE_WIFI) {
+        } else if (nType == ConnectivityManager.TYPE_WIFI) {
             return NetType.WIFI;
         }
-        return NetType.AUTO;
+        return NetType.NONE;
     }
 
     /**
      * 打开网络设置界面
-     *
-     * @param context
-     * @param requestCode 请求跳转
      */
-    public static void openNetSetting(Context context, int requestCode) {
+    public static void openSetting(Context context, int requestCode) {
         Intent intent = new Intent("/");
-        ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
-        intent.setComponent(cn);
+        ComponentName cm = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
+        intent.setComponent(cm);
         intent.setAction("android.intent.action.VIEW");
         ((Activity) context).startActivityForResult(intent, requestCode);
     }

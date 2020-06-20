@@ -10,4 +10,5 @@
         <attr name="maxProgress" format="integer" />
         <attr name="curProgress" format="integer" />
     </declare-styleable>
+
 </resources>

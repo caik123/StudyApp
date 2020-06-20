@@ -36,9 +36,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.example.study.net.NetStateReceiver">
+        <!-- 网络变化广播 -->
+        <receiver android:name="com.xingtu.globalnetworkchange.NetStateReceiver">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
     </application>

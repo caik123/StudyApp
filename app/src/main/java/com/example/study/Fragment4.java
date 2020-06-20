@@ -5,15 +5,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+
+import com.example.study.vvmodel.MapViewModel;
 
 public class Fragment4 extends Fragment {
     private View view;
     private boolean isFirstLoad = true;
-
+    private MapViewModel mapViewModel;
+    private TextView textView;
+    private Button button;
     public Fragment4() {
         // Required empty public constructor
     }
@@ -37,6 +44,8 @@ public class Fragment4 extends Fragment {
             return view;
         }
         view = inflater.inflate(R.layout.fragment_4, container, false);
+        textView = view.findViewById(R.id.text);
+        button = view.findViewById(R.id.button);
         return view;
     }
 
@@ -44,6 +53,21 @@ public class Fragment4 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.e("test", "onViewCreated4");
         super.onViewCreated(view, savedInstanceState);
+
+        mapViewModel = new MapViewModel();
+        mapViewModel.getPrice().observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                textView.setText(integer + "");
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapViewModel.setPrice(1);
+            }
+        });
     }
 
     @Override
@@ -56,4 +80,5 @@ public class Fragment4 extends Fragment {
             //lazyLoad();
         }
     }
+
 }

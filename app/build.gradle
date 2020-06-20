@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -43,4 +42,9 @@ dependencies {
     //权限
     implementation 'pub.devrel:easypermissions:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //日历
+    implementation 'com.haibin:calendarview:3.6.9'
+    //网络框架
+    implementation project(path: ':globalNetWorkChange')
 }

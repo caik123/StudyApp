@@ -7,64 +7,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.example.study.camera.CameraActivity;
 import com.example.study.tree.TreeActivity;
+import com.example.study.utils.ThreadManager;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment1#newInstance} factory method to
- * create an instance of this fragment.
  * 结论：从源码中得到的结论是，Fragment数据的初始化应当在onResume方法中执行，可实现懒加载。
  */
 public class Fragment1 extends Fragment {
-
+    private static final String TAG = Fragment1.class.getSimpleName();
     private View view;
-    boolean isFirstLoad = true;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private boolean isFirstLoad = true;
 
     public Fragment1() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment1 newInstance(String param1, String param2) {
-        Fragment1 fragment = new Fragment1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("test", "onCreate1");
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -88,23 +58,22 @@ public class Fragment1 extends Fragment {
                 startActivity(new Intent(getContext(), CameraActivity.class));
             }
         });
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("test", "onViewCreated1");
+        Log.e(TAG, "onViewCreated");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //懒加载
-        if (isFirstLoad){
+        if (isFirstLoad) {
             isFirstLoad = false;
-            Log.e("test", "第1个Fragment懒加载");
-            //lazyLoad();
         }
     }
 
@@ -113,5 +82,12 @@ public class Fragment1 extends Fragment {
         super.onPause();
         //停止加载
         //stopLoad();
+        Log.e(TAG, "onPause");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy");
     }
 }
