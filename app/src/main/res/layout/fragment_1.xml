@@ -19,4 +19,14 @@
         android:layout_toRightOf="@+id/button"
         android:text="camera" />
 
+    <Button
+        android:id="@+id/doubleClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/button2"
+        android:text="双击" />
+
 </RelativeLayout>
