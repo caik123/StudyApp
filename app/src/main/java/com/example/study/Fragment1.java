@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import com.example.study.camera.CameraActivity;
 import com.example.study.tree.TreeActivity;
 import com.example.study.utils.ThreadManager;
 
@@ -52,10 +51,10 @@ public class Fragment1 extends Fragment {
                 startActivity(new Intent(getContext(), TreeActivity.class));
             }
         });
-        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.doubleClick).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CameraActivity.class));
+            public void onClick(View v) {//权限
+                startActivity(new Intent(getContext(), PermissionTestActivity.class));
             }
         });
 

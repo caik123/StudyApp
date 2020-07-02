@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.study"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,15 +36,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
 
-    //来疯直播
-    implementation 'com.laifeng:sopcast-sdk:1.0.4'
-
-    //权限
-    implementation 'pub.devrel:easypermissions:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
     //日历
     implementation 'com.haibin:calendarview:3.6.9'
     //网络框架
     implementation project(path: ':globalNetWorkChange')
+    //权限
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }

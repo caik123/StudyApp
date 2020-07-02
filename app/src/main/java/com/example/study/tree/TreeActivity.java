@@ -37,7 +37,7 @@ public class TreeActivity extends AppCompatActivity {
     }
 
     private void addOne(List<Node> data) {
-        //data.add(new Dept(1, 0, "总公司"));//可以直接注释掉此项，即可构造一个森林
+        data.add(new Dept(1, 0, "总公司"));//可以直接注释掉此项，即可构造一个森林
 
         data.add(new Dept(2, 1, "一级部门第一个"));
         data.add(new Dept(21,2,"二级部门第一个"));
