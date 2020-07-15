@@ -25,7 +25,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PermissionTestActivity"></activity>
+        <activity android:name=".Activity4"></activity>
+        <activity android:name=".Activity3" />
+        <activity android:name=".PermissionTestActivity" />
         <activity android:name=".tree.TreeActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".MainActivity">

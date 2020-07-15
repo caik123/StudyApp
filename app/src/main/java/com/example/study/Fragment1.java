@@ -1,6 +1,7 @@
 package com.example.study;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.study.tree.TreeActivity;
 import com.example.study.utils.ThreadManager;
 
+import android.graphics.Typeface;
 
 /**
  * 结论：从源码中得到的结论是，Fragment数据的初始化应当在onResume方法中执行，可实现懒加载。
@@ -58,6 +61,10 @@ public class Fragment1 extends Fragment {
             }
         });
 
+        //字体图标
+        Typeface iconfont = Typeface.createFromAsset(getActivity().getAssets(), "iconfont/iconfont.ttf");
+        TextView textView = (TextView) view.findViewById(R.id.textView);
+        textView.setTypeface(iconfont);
         return view;
     }
 
