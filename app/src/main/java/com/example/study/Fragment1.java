@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,6 +74,11 @@ public class Fragment1 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.e(TAG, "onViewCreated");
+        CameraHandlerThread cameraHandlerThread = new CameraHandlerThread("camera thread");
+        synchronized (cameraHandlerThread) {
+            cameraHandlerThread.openCamera();
+        }
+        Log.e(TAG, "count:" + count);
     }
 
     @Override
@@ -95,5 +102,48 @@ public class Fragment1 extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e(TAG, "onDestroy");
+    }
+
+    private int count = 1;
+
+    public class CameraHandlerThread extends HandlerThread {
+
+        private Handler mHandler;
+
+        public CameraHandlerThread(String name) {
+            super(name);
+            start();
+            mHandler = new Handler(getLooper());
+            Log.e(TAG, "name:" + name);
+        }
+
+        private void notifyCameraOpened() {
+            synchronized (this) {
+                notify();
+            }
+        }
+
+        public void openCamera() {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "openCamera");
+                    doOpenFromCamera();
+                    notifyCameraOpened();
+                }
+            });
+
+            try {
+                wait();
+            } catch (InterruptedException ex) {
+                Log.e(TAG, "wait was interrupted");
+            }
+        }
+
+        private void doOpenFromCamera() {
+            SystemClock.sleep(3000);
+            Log.e(TAG, "doOpenFromCamera 3000 later");
+            count++;
+        }
     }
 }
