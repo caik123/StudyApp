@@ -1,10 +1,10 @@
-package com.example.study;
+package com.example.study.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import com.example.study.R;
 import com.xingtu.globalnetworkchange.NetworkManager;
 
 public class BaseActivity extends AppCompatActivity {

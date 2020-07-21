@@ -1,4 +1,4 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.example.study.R;
 import com.example.study.vvmodel.MapViewModel;
 
 public class Fragment4 extends Fragment {

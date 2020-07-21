@@ -7,7 +7,7 @@
     android:clickable="true"
     android:id="@+id/layout"
     android:orientation="vertical"
-    tools:context=".Fragment3"
+    tools:context=".ui.Fragment3"
     android:focusable="true">
 
     <com.example.study.view.CardItem

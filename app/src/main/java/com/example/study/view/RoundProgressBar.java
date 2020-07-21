@@ -15,7 +15,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.example.study.DensityUtil;
+import com.example.study.ui.DensityUtil;
 import com.example.study.R;
 
 /**

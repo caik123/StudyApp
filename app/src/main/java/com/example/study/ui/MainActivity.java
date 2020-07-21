@@ -1,6 +1,5 @@
-package com.example.study;
+package com.example.study.ui;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,18 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 //import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.study.R;
 import com.example.study.adapter.HomeAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.List;
-
-import pub.devrel.easypermissions.AppSettingsDialog;
-import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();

@@ -1,8 +1,10 @@
-package com.example.study;
+package com.example.study.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.study.R;
 
 public class Activity4 extends AppCompatActivity {
 

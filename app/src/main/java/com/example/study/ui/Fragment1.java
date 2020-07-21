@@ -1,13 +1,8 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -15,14 +10,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.study.R;
+import com.example.study.bean.BannerResp;
+import com.example.study.bean.Base2Result;
+import com.example.study.bean.UserInfo;
+import com.example.study.http.HttpClient;
 import com.example.study.tree.TreeActivity;
-import com.example.study.utils.ThreadManager;
 
-import android.graphics.Typeface;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 结论：从源码中得到的结论是，Fragment数据的初始化应当在onResume方法中执行，可实现懒加载。
@@ -79,6 +84,37 @@ public class Fragment1 extends Fragment {
             cameraHandlerThread.openCamera();
         }
         Log.e(TAG, "count:" + count);
+        Disposable disposable = HttpClient.Builder.getWanAndroidServer().getWanAndroidBanner()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BannerResp>() {
+                    @Override
+                    public void accept(BannerResp bannerResp) throws Exception {
+                        Log.e("Fragment1", "bannerResp:" + bannerResp);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e("Fragment1", "throwable:" + throwable.getMessage());
+                    }
+                });
+        UserInfo userInfo = new UserInfo();
+        userInfo.setNumId(16);
+        userInfo.setName("瞎掰");
+        Disposable disposable2 = HttpClient.Builder.getWebTestServer().register(userInfo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Base2Result>() {
+                    @Override
+                    public void accept(Base2Result base2Result) throws Exception {
+                        Log.e("Fragment1", "base2Result:" + base2Result);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e("Fragment1", "throwable:" + throwable.getMessage());
+                    }
+                });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.study.R;
 import com.example.study.view.RoundProgressBar;
 
 

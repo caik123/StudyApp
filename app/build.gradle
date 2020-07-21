@@ -42,8 +42,17 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //日历
     implementation 'com.haibin:calendarview:3.6.9'
-    //网络框架
+    //网络监听
     implementation project(path: ':globalNetWorkChange')
     //权限
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+
+    implementation 'commons-lang:commons-lang:2.6'
 }

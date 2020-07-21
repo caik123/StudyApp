@@ -1,4 +1,4 @@
-package com.example.study;
+package com.example.study.ui;
 
 import android.content.res.Resources;
 
