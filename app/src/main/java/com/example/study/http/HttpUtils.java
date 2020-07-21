@@ -56,9 +56,10 @@ public class HttpUtils {
     private Gson gson;
     private Context context;
 
-    public final static String BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
-    public final static String BASE_URL_API_WEB = "http://172.16.3.118:8082/";
-    public final static String BASE_URL_TEST = "http://192.168.100.183:7300/";
+    public static final String BASE_URL_WAN_ANDROID = "https://www.wanandroid.com/";
+    public static final String BASE_URL_API_WEB = "http://172.16.3.118:8082/";
+    public static final String BASE_URL_TEST = "http://192.168.100.183:7300/";
+    public static final String BASE_URL_WEATHER = "http://op.juhe.cn/";
 
     public static HttpUtils getInstance() {
         if (instance == null) {

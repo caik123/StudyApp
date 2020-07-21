@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.Fragment2">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.study.view.RoundProgressBar
-        android:id="@+id/round_progress_bar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:curProgress="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07"
-        app:maxProgress="100"
-        app:progressColor="@android:color/holo_red_light"
-        app:ringColor="@android:color/darker_gray"
-        app:ringWidth="3dp"
-        app:text="跳过"
-        app:textColor="@android:color/white"
-        app:textSize="12sp" />
+    <data>
 
-    <!--    android:typeface="normal":设置字体类型-->
-    <!--    android:track="":设置开关的轨迹图片-->
-    <!--    android:textOff="开"：设置开关checked的文字-->
-    <!--    android:textOn="关"：设置开关关闭时的文字-->
-    <!--    android:thumb="":设置开关的图片-->
-    <!--    android:switchMinWidth=""：开关最小宽度-->
-    <!--    android:switchPadding="":设置开关 与文字的空白距离-->
-    <!--    android:switchTextAppearance="":设置文本的风格-->
-    <!--    android:checked="":设置初始选中状态-->
-    <!--    android:splitTrack="true":是否设置一个间隙，让滑块与底部图片分隔（API 21及以上）-->
-    <!--    android:showText="true"：设置是否显示开关上的文字（API 21及以上）-->
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:showText="true"
-        android:switchPadding="10dp"
-        android:switchTextAppearance="@style/SwitchTheme"
-        android:textSize="12sp"
-        android:text="开"
-        android:textOff="OFF"
-        android:textOn="ON"
-        android:thumb="@drawable/switch_custom_thumb_selector"
-        android:track="@drawable/switch_custom_track_selector"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <import type="com.example.study.bean.Weather" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="weather"
+            type="Weather" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.Fragment2">
+
+        <com.example.study.view.RoundProgressBar
+            android:id="@+id/round_progress_bar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:curProgress="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.886"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07"
+            app:maxProgress="100"
+            app:progressColor="@android:color/holo_red_light"
+            app:ringColor="@android:color/darker_gray"
+            app:ringWidth="3dp"
+            app:text="跳过"
+            app:textColor="@android:color/white"
+            app:textSize="12sp" />
+
+        <!--    android:typeface="normal":设置字体类型-->
+        <!--    android:track="":设置开关的轨迹图片-->
+        <!--    android:textOff="开"：设置开关checked的文字-->
+        <!--    android:textOn="关"：设置开关关闭时的文字-->
+        <!--    android:thumb="":设置开关的图片-->
+        <!--    android:switchMinWidth=""：开关最小宽度-->
+        <!--    android:switchPadding="":设置开关 与文字的空白距离-->
+        <!--    android:switchTextAppearance="":设置文本的风格-->
+        <!--    android:checked="":设置初始选中状态-->
+        <!--    android:splitTrack="true":是否设置一个间隙，让滑块与底部图片分隔（API 21及以上）-->
+        <!--    android:showText="true"：设置是否显示开关上的文字（API 21及以上）-->
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:showText="true"
+            android:switchPadding="10dp"
+            android:switchTextAppearance="@style/SwitchTheme"
+            android:text="开"
+            android:textOff="OFF"
+            android:textOn="ON"
+            android:textSize="12sp"
+            android:thumb="@drawable/switch_custom_thumb_selector"
+            android:track="@drawable/switch_custom_track_selector"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weather.reason,default=123}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/round_progress_bar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

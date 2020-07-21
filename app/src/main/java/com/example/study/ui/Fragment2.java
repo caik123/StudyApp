@@ -4,7 +4,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +17,18 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.study.R;
+import com.example.study.bean.Weather;
+import com.example.study.databinding.Fragment2Binding;
+import com.example.study.http.HttpClient;
+import com.example.study.http.HttpUtils;
+import com.example.study.http2.ApiUtils;
+import com.example.study.inter.ApiWanService;
 import com.example.study.view.RoundProgressBar;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.HashMap;
+
+import okhttp3.Call;
 
 
 /**
@@ -22,37 +37,16 @@ import com.example.study.view.RoundProgressBar;
  * create an instance of this fragment.
  */
 public class Fragment2 extends Fragment {
-    private View view;
+    private Fragment2Binding mBinding;
+    private Fragment2ViewModel viewModel;
     boolean isFirstLoad = true;
-    RoundProgressBar roundProgressBar;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private Weather mWeather;
     public Fragment2() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment2.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Fragment2 newInstance(String param1, String param2) {
         Fragment2 fragment = new Fragment2();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -60,10 +54,6 @@ public class Fragment2 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("test", "onCreate2");
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -71,12 +61,10 @@ public class Fragment2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.e("test", "onCreateView2");
-        if (view != null) {
-            return view;
-        }
-        view = inflater.inflate(R.layout.fragment_2, container, false);
-        roundProgressBar  = view.findViewById(R.id.round_progress_bar);
-        return view;
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_2, container, false);
+        mWeather = new Weather();
+        mBinding.setWeather(mWeather);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -84,19 +72,35 @@ public class Fragment2 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.e("test", "onViewCreated2");
 
-
-
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        viewModel = new Fragment2ViewModel();
+        // TODO: Use the ViewModel
+        viewModel.getWeather().observe(getViewLifecycleOwner(), new Observer<Weather>() {
+            @Override
+            public void onChanged(Weather weather) {
+                Log.e("Fragment2",weather.getReason());
+                mWeather.setReason(weather.getReason());
+                //weather.setReason(weather.getReason());
+            }
+        });
+        viewModel.queryWeather("武汉");
+    }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
         //懒加载
-        if (isFirstLoad){
+        if (isFirstLoad) {
             isFirstLoad = false;
             Log.e("test", "第2个Fragment懒加载");
             //lazyLoad();
-            roundProgressBar.setOnPressListener(new RoundProgressBar.OnPressListener() {
+            mBinding.roundProgressBar.setOnPressListener(new RoundProgressBar.OnPressListener() {
                 @Override
                 public void onPress(View view) {
                     Toast.makeText(getContext(), "onPress", Toast.LENGTH_SHORT).show();
@@ -106,7 +110,7 @@ public class Fragment2 extends Fragment {
                 }
             });
 
-            roundProgressBar.startSlide(5000, new RoundProgressBar.SlideCallback() {
+            mBinding.roundProgressBar.startSlide(5000, new RoundProgressBar.SlideCallback() {
                 @Override
                 public void onProgress(int curProgress, int maxProgress) {
 
